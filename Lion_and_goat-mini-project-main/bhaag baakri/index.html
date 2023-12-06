@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Drag and Drop box</title>
+  <script>
+    var turn=0;
+    var count=0;
+     
+    
+    
+
+    var str="";
+
+
+    //// map for star corners/////
+    var map1 = new Map();
+    map1.set('div1', '0');
+    map1.set('div2', '0');
+    map1.set('div3', '0');
+    map1.set('div4', '0');
+    map1.set('div5', '0');
+    map1.set('div6', '0');
+    map1.set('div7', '0');
+    map1.set('div8', '0');
+    map1.set('div9', '0');
+    map1.set('div10', '0');
+
+    
+
+    // map for eagles and crows//////
+    var map2=new Map();
+    map1.set('div11', '0');
+    map1.set('div12', '0');
+    map1.set('div13', '0');
+    map1.set('div14', '0');
+     map1.set('div15', '0');
+    map1.set('div16', '0');
+    map1.set('div17', '0');
+     map1.set('div18', '0');
+
+    /////map for  crows not yet started///
+     var map3=new Map();
+     map3.set('div11','1');
+     map3.set('div12','1');
+     map3.set('div13','1');
+     map3.set('div14','1');
+     map3.set('div15','1');
+     map3.set('div16','1');
+     map3.set('div17','1');
+	  
+    function allowDrop(ev) 
+    {
+        ev.preventDefault();
+    }
+ 
+    function dragStart(ev) 
+    {
+      //console.log(ev.target.id);
+        ev.dataTransfer.setData("text", ev.target.id);
+        str=str+ev.target.id+" was dragged \n";
+        console.log(str);
+
+    }
+   
+    function dragDrop(ev) 
+    {
+        ev.preventDefault();
+        const data = ev.dataTransfer.getData("text");
+        const dataele=document.getElementById(data);
+        console.log(ev.target.id);
+         if((ev.target.id=='div11')||(ev.target.id=='div12')||(ev.target.id=='div13')||(ev.target.id=='div14')||(ev.target.id=='div15')||(ev.target.id=='div16')||(ev.target.id=='div17')||(ev.target.id=='div18'))
+        {
+           return;
+        }      
+        if(data!='div18')
+        {
+          if(map3.get(data)=='0')
+          {
+            if(map3.get('div11')=='1'||map3.get('div12')=='1'||map3.get('div13')=='1'||map3.get('div14')=='1'||map3.get('div15')=='1'||map3.get('div16')=='1'||map3.get('div17')=='1')
+            {
+              return;
+
+            }
+            
+            
+          }
+          // else
+          //   {
+          //     map3.set(data,'0');
+          //   }
+
+        }
+        
+
+
+        
+        if(turn==0)
+        {
+          if(data=='div18')
+          {
+            //alert ("invalid move");
+            return;
+          }
+        }
+        if(turn==1)
+        {
+          if(data!='div18')
+          {
+            //alert("invalid move");
+            return;
+          }
+        }
+        if(turn==0)turn=1;
+        else turn=0;
+        //data==source//
+        //ev.target.id==destination//
+        //console.log(data);
+        // var flag=0;
+        // if(data!='div18')
+        // {
+
+          
+        // }
+        ////LOGIC FOR GOAT WIN////////
+        
+        
+         
+
+        
+
+
+
+        ////////////LOGIC FOR LION KILLING CROW//////////
+        if(data=='div18')
+        {
+          if(map2.get(data)=='div1'&&ev.target.id=='div10')
+          {
+            if(map1.get('div10')=='0'&&map1.get('div4')!='0')
+            {
+              var doc = document.getElementById('div4');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div4'),'0');
+                map1.set('div4','0');
+                
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div1'&&ev.target.id=='div7')
+          {
+            if(map1.get('div7')=='0'&&map1.get('div5')!='0')
+            {
+              var doc = document.getElementById('div5');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div5'),'0');
+                map1.set('div5','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div2'&&ev.target.id=='div4')
+          {
+            if(map1.get('div4')=='0'&&map1.get('div10')!='0')
+            {
+              var doc = document.getElementById('div10');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div10'),'0');
+                map1.set('div10','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div2'&&ev.target.id=='div7')
+          {
+            if(map1.get('div7')=='0'&&map1.get('div9')!='0')
+            {
+              var doc = document.getElementById('div9');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div9'),'0');
+                map1.set('div9','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div3'&&ev.target.id=='div5')
+          {
+            if(map1.get('div5')=='0'&&map1.get('div4')!='0')
+            {
+              var doc = document.getElementById('div4');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div4'),'0');
+                map1.set('div4','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div3'&&ev.target.id=='div9')
+          {
+            if(map1.get('div9')=='0'&&map1.get('div10')!='0')
+            {
+              var doc = document.getElementById('div10');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div10'),'0');
+                map1.set('div10','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div4'&&ev.target.id=='div6')
+          {
+            if(map1.get('div6')=='0'&&map1.get('div5')!='0')
+            {
+              var doc = document.getElementById('div5');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div5'),'0');
+                map1.set('div5','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div4'&&ev.target.id=='div2')
+          {
+            if(map1.get('div2')=='0'&&map1.get('div10')!='0')
+            {
+              var doc = document.getElementById('div10');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div10'),'0');
+                map1.set('div10','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div5'&&ev.target.id=='div3')
+          {
+            if(map1.get('div3')=='0'&&map1.get('div4')!='0')
+            {
+              var doc = document.getElementById('div4');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div4'),'0');
+                map1.set('div4','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div5'&&ev.target.id=='div8')
+          {
+            if(map1.get('div8')=='0'&&map1.get('div7')!='0')
+            {
+              var doc = document.getElementById('div7');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div7'),'0');
+                map1.set('div7','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div6'&&ev.target.id=='div4')
+          {
+            if(map1.get('div4')=='0'&&map1.get('div5')!='0')
+            {
+              var doc = document.getElementById('div5');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div5'),'0');
+                map1.set('div5','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div6'&&ev.target.id=='div9')
+          {
+            if(map1.get('div9')=='0'&&map1.get('div7')!='0')
+            {
+              var doc = document.getElementById('div7');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div7'),'0');
+                map1.set('div7','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div7'&&ev.target.id=='div1')
+          {
+            if(map1.get('div1')=='0'&&map1.get('div5')!='0')
+            {
+              var doc = document.getElementById('div5');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div5'),'0');
+                map1.set('div5','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div7'&&ev.target.id=='div2')
+          {
+            if(map1.get('div2')=='0'&&map1.get('div9')!='0')
+            {
+              var doc = document.getElementById('div9');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div9'),'0');
+                map1.set('div9','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+          
+            count++;
+            console.log(count);
+            
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div8'&&ev.target.id=='div5')
+          {
+            if(map1.get('div5')=='0'&&map1.get('div7')!='0')
+            {
+              var doc = document.getElementById('div7');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div7'),'0');
+                map1.set('div7','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div8'&&ev.target.id=='div10')
+          {
+            if(map1.get('div10')=='0'&&map1.get('div9')!='0')
+            {
+              var doc = document.getElementById('div9');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div99'),'0');
+                map1.set('div9','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+
+            if(count==4)alert("vulture wins");
+            
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div9'&&ev.target.id=='div6')
+          {
+            if(map1.get('div6')=='0'&&map1.get('div7')!='0')
+            {
+              var doc = document.getElementById('div7');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div7'),'0');
+                map1.set('div7','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div9'&&ev.target.id=='div3')
+          {
+            if(map1.get('div3')=='0'&&map1.get('div10')!='0')
+            {
+              var doc = document.getElementById('div10');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+
+                map2.set(map1.get('div10'),'0');
+                map1.set('div10','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div10'&&ev.target.id=='div1')
+          {
+            if(map1.get('div1')=='0'&&map1.get('div4')!='0')
+            {
+              var doc = document.getElementById('div4');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div4'),'0');
+                map1.set('div4','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+          else if(map2.get(data)=='div10'&&ev.target.id=='div8')
+          {
+            if(map1.get('div8')=='0'&&map1.get('div9')!='0')
+            {
+              var doc = document.getElementById('div9');
+              console.log(doc.childNodes);
+                doc.removeChild(doc.childNodes[0]);
+                map2.set(map1.get('div9'),'0');
+                map1.set('div9','0');
+                map1.set(map2.get(data),'0');
+              map1.set(ev.target.id,data);
+             map2.set(data,ev.target.id);
+            ev.target.appendChild(dataele);
+            count++;
+            console.log(count);
+            
+            if(count==4)alert("vulture wins");
+            return;
+
+            }
+          }
+        }
+        ///////end of eagle kill crow logic///////
+
+
+
+        
+        ///// LOGIC FOR limiting  THE MOVE TO 1 UNIT DISTANCE ///////
+          if(map2.get(data)=='div1')
+          {
+            if(ev.target.id!='div4')
+            {
+              if(ev.target.id!='div5')
+              {
+              
+              
+              if(turn==0)turn=1;
+              else turn=0;
+              return;
+
+              }
+             
+            }
+            
+          }
+          else if(map2.get(data)=='div2')
+          {
+            if(ev.target.id!='div10')
+            {
+              if(ev.target.id!='div9')
+              {
+              
+              
+              if(turn==0)turn=1;
+              else turn=0;
+              return;
+
+              }
+             
+            }
+            
+          }
+          else if(map2.get(data)=='div3')
+          {
+            if(ev.target.id!='div4')
+            {
+              if(ev.target.id!='div10')
+              {
+              
+              
+              if(turn==0)turn=1;
+              else turn=0;
+              return;
+
+              }
+             
+            }
+            
+          }
+          else if(map2.get(data)=='div4')
+          {
+            
+            
+              if((ev.target.id!='div1')&&(ev.target.id!='div3')&&(ev.target.id!='div5')&&(ev.target.id!='div10'))
+              {
+                if(turn==0)turn=1;
+              else turn=0;
+              return;
+
+              }
+          }
+          else if(map2.get(data)=='div5')
+          {
+            
+            
+              if((ev.target.id!='div4')&&(ev.target.id!='div1')&&(ev.target.id!='div6')&&(ev.target.id!='div7'))
+              {
+                if(turn==0)turn=1;
+              else turn=0;
+              return;
+
+              }
+          }
+          else if(map2.get(data)=='div6')
+          {
+            
+            
+              if((ev.target.id!='div5')&&(ev.target.id!='div7'))
+              {
+                if(turn==0)turn=1;
+              else turn=0;
+              return;
+
+              }
+          }
+          else if(map2.get(data)=='div7')
+          {
+            
+            
+              if((ev.target.id!='div5')&&(ev.target.id!='div6')&&(ev.target.id!='div8')&&(ev.target.id!='div9'))
+              {
+                if(turn==0)turn=1;
+              else turn=0;
+              return;
+
+              }
+          }
+          else if(map2.get(data)=='div8')
+          {
+            
+            
+              if((ev.target.id!='div7')&&(ev.target.id!='div9'))
+              {
+                if(turn==0)turn=1;
+              else turn=0;
+              return;
+
+              }
+          }
+          else if(map2.get(data)=='div9')
+          {
+            
+            
+              if((ev.target.id!='div2')&&(ev.target.id!='div7')&&(ev.target.id!='div8')&&(ev.target.id!='div10'))
+              {
+                if(turn==0)turn=1;
+              else turn=0;
+              return;
+
+              }
+          }
+          else if(map2.get(data)=='div10')
+          {
+            
+            
+              if((ev.target.id!='div3')&&(ev.target.id!='div4')&&(ev.target.id!='div2')&&(ev.target.id!='div9'))
+              {
+                if(turn==0)turn=1;
+              else turn=0;
+              return;
+
+              }
+          }
+        
+
+        
+          
+        map1.set(map2.get(data),'0');
+        map1.set(ev.target.id,data);
+        map2.set(data,ev.target.id);
+        
+        
+
+
+        console.log(map1);
+        console.log(map2);
+        //console.log(data);
+        //console.log(ev.target.id);
+        str=str+data+" was dropped on "+ev.target.id+"\n";
+        ev.target.appendChild(dataele);
+        map3.set(data,'0');
+        //////LOGIC FOR GOAT WIN//////
+        if(map2.get('div18')=='div1')
+        {
+            if((map1.get('div4')!='0')&&(map1.get('div5')!='0')&&(map1.get('div10')!='0')&&(map1.get('div7')!='0'))
+            {
+              console.log("test");
+              
+              alert("crow wins");
+            }
+        }
+        else if(map2.get('div18')=='div2')
+        {
+            if((map1.get('div9')!='0')&&(map1.get('div10')!='0')&&(map1.get('div4')!='0')&&(map1.get('div7')!='0'))
+            {
+              console.log("test");
+              
+              alert("crow wins");
+            }
+        }
+        else if(map2.get('div18')=='div3')
+        {
+            if((map1.get('div4')!='0')&&(map1.get('div10')!='0')&&(map1.get('div5')!='0')&&(map1.get('div9')!='0'))
+            {
+              console.log("test");
+              
+              alert("crow wins");
+            }
+        }
+        else if(map2.get('div18')=='div4')
+        {
+            if((map1.get('div1')!='0')&&(map1.get('div5')!='0')&&(map1.get('div6')!='0')&&(map1.get('div3')!='0')&&(map1.get('div10')!='0')&&(map1.get('div2')!='0'))
+            {
+              console.log("test");
+              
+              alert("crow wins");
+            }
+        }
+        else if(map2.get('div18')=='div5')
+        {
+            if((map1.get('div1')!='0')&&(map1.get('div6')!='0')&&(map1.get('div7')!='0')&&(map1.get('div8')!='0')&&(map1.get('div4')!='0')&&(map1.get('div3')!='0'))
+            {
+              console.log("test");
+              
+              alert("crow wins");
+            }
+        }
+        else if(map2.get('div18')=='div6')
+        {
+            if((map1.get('div4')!='0')&&(map1.get('div5')!='0')&&(map1.get('div7')!='0')&&(map1.get('div9')!='0'))
+            {
+              console.log("test");
+              
+              alert("crow wins");
+            }
+        }
+        else if(map2.get('div18')=='div7')
+        {
+            if((map1.get('div6')!='0')&&(map1.get('div8')!='0')&&(map1.get('div9')!='0')&&(map1.get('div2')!='0')&&(map1.get('div5')!='0')&&(map1.get('div1')!='0'))
+            {
+              console.log("test");
+              
+              alert("crow wins");
+            }
+        }
+        else if(map2.get('div18')=='div8')
+        {
+            if((map1.get('div7')!='0')&&(map1.get('div5')!='0')&&(map1.get('div9')!='0')&&(map1.get('div10')!='0'))
+            {
+              console.log("test");
+              
+              alert("crow wins");
+            }
+        }
+        else if(map2.get('div18')=='div9')
+        {
+            if((map1.get('div7')!='0')&&(map1.get('div6')!='0')&&(map1.get('div8')!='0')&&(map1.get('div10')!='0')&&(map1.get('div3')!='0')&&(map1.get('div2')!='0'))
+            {
+              console.log("test");
+              
+              alert("crow wins");
+            }
+        }
+        else if(map2.get('div18')=='div10')
+        {
+            if((map1.get('div1')!='0')&&(map1.get('div4')!='0')&&(map1.get('div3')!='0')&&(map1.get('div9')!='0')&&(map1.get('div8')!='0')&&(map1.get('div2')!='0'))
+            {
+              console.log("test");
+              
+              alert("crow wins");
+            }
+        }
+
+    }
+
+
+    window.onload = function() 
+	  {
+	  var txt = str;
+    document.getElementById('link').onclick = function(code) 
+		{
+      this.href = 'data:text/plain;charset=utf-11,' + encodeURIComponent(str);
+    };
+    };
+
+    
+    
+  </script>
+
+  
+<style>
+  body {
+    width: 100%;
+    height: 100%;
+    background-image: url(abc.png);
+  }
+
+   
+   .circle{
+    
+    width:70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: aquamarine;
+    position:absolute;
+  } 
+
+  #div1{
+    top:10px;
+    left:300px;
+  }
+  #div2{
+    top:440px;
+    left:300px;
+  }
+  #div3{
+    top:280px;
+    left:110px;
+  }
+  #div4{
+    top:200px;
+    left:280px;
+  }
+  #div5{
+    top:140px;
+    left:450px;
+  }
+  #div6{
+    top:60px;
+    left:680px;
+  }
+  #div7{
+    top:225px;
+    left:530px;
+  }
+  #div8{
+    top:345px;
+    left:680px;
+  }
+  #div9{
+    top:340px;
+    left:420px;
+  }
+  #div10{
+    top:310px;
+    left:300px;
+  }
+  
+
+  
+  /* .circle1{ */
+    
+    /* display: inline-block; */
+    /*width:60px;
+    /* //height: 60px;*/
+    /* border-radius: 50%;
+    background-color: black; 
+     position:absolute; 
+  } */
+  .circle1
+  {    
+    border-radius: 50%;
+    background:
+    radial-gradient(circle at 30% 30%,
+    black,
+    rgb(110, 102, 125));
+  }
+  #div11{
+    /* top:100px;
+    left:1000px; */
+    width:60px;
+    height: 60px;
+    
+        
+  
+  }
+  #div12{
+    /* top:180px;
+    left:1000px; */
+    width:60px;
+    height: 60px;
+    
+
+  }
+  #div13{
+    /* top:260px;
+    left:1000px; */
+    width:60px;
+    height: 60px;
+    /* border-radius: 50%;
+    background-color: black;
+    position:absolute; */
+  
+  }
+  #div14{
+    /* top:340px;
+    left:1000px; */
+    width:60px;
+    height: 60px;
+    /* border-radius: 50%;
+    background-color: black; */
+    /* position:absolute; */
+  
+  }
+  #div15{
+    /* top:420px;
+    left:1000px; */
+    width:60px;
+    height: 60px;
+    /* border-radius: 50%;
+    background-color: black; */
+    /* position:absolute; */
+ 
+  }
+  #div16{
+    /* top:500px;
+    left:1000px; */
+    width:60px;
+    height: 60px;
+    /* border-radius: 50%;
+    background-color: black; */
+    /* position:absolute; */
+
+  }
+  #div17{
+    /* top:580px; */
+    /* left:1000px; */
+    width:60px;
+    height: 60px;
+    /* border-radius: 50%;
+    background-color: black; */
+    /* position:absolute; */
+
+  }
+  /*.circle3{
+    top:20px;
+    left:360px;
+    
+    width:60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: red;
+    position:absolute;
+  }*/
+  #div18{
+    /* top:340px;
+    left:1100px; */
+    width:60px;
+    height: 60px;
+    /* border-radius: 50%; */
+     background:
+    radial-gradient(circle at 30% 30%,
+    red,
+    rgb(110, 102, 125));
+    
+  }
+  
+
+
+  
+</style>
+
+</head>
+
+<body>
+  
+<!-- <img src="abc.png"  width="1600" height="900" > -->
+
+
+
+
+<div class="circle"  id="div1"  ondrop="dragDrop(event)" ondragover="allowDrop(event)" > </div>
+  <div class="circle"  id="div2" ondrop="dragDrop(event)" ondragover="allowDrop(event)"></div>
+  <div class="circle"  id="div3" ondrop="dragDrop(event)" ondragover="allowDrop(event)"></div>
+  <div class="circle"  id="div4" ondrop="dragDrop(event)" ondragover="allowDrop(event)"></div>
+  <div class="circle"  id="div5" ondrop="dragDrop(event)" ondragover="allowDrop(event)"></div>
+  <div class="circle"  id="div6" ondrop="dragDrop(event)" ondragover="allowDrop(event)"></div>
+  <div class="circle"  id="div7" ondrop="dragDrop(event)" ondragover="allowDrop(event)"></div>
+  <div class="circle"  id="div8" ondrop="dragDrop(event)" ondragover="allowDrop(event)"></div>
+  <div class="circle"  id="div9" ondrop="dragDrop(event)" ondragover="allowDrop(event)"></div>
+  <div class="circle"  id="div10" ondrop="dragDrop(event)" ondragover="allowDrop(event)"></div>
+
+
+  <div class="circle1"  id="div11" draggable="true" ondragstart="dragStart(event)"> </div>
+  <div class="circle1"  id="div12" draggable="true" ondragstart="dragStart(event)"></div>
+  <div class="circle1"  id="div13" draggable="true" ondragstart="dragStart(event)"></div>
+  <div class="circle1"  id="div14" draggable="true" ondragstart="dragStart(event)"></div>
+  <div class="circle1"  id="div15" draggable="true" ondragstart="dragStart(event)"></div>
+  <div class="circle1"  id="div16" draggable="true" ondragstart="dragStart(event)"></div>
+  <div class="circle1"  id="div17" draggable="true" ondragstart="dragStart(event)"></div>
+  <div class="circle1"  id="div18" draggable="true" ondragstart="dragStart(event)"></div>
+
+
+  <div>
+    <a href="" id="link" download="code.txt"> Download</a>
+  </div>
+
+
+  
+  
+  
+
+
+
+
+
+
+</body>
+</html>
